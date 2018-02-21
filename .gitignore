@@ -1,20 +1,14 @@
-# Mac files
-.DS_Store
-
-# Byte-compiled / optimized / DLL files
-*.manifest
-*.spec
-
-
-_site/**
-_site
-_development_tool/**
-_development_tool
-
-.sass-cache/**
-*.css.map
-*.scssc
-
-Gemfile.lock
 *.gem
+*.sublime-project
+*.sublime-workspace
+.bundle
 .DS_Store
+.jekyll-metadata
+.sass-cache
+_asset_bundler_cache
+_site
+codekit-config.json
+example/_site
+Gemfile.lock
+node_modules
+npm-debug.log*
