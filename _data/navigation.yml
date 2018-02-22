@@ -2,6 +2,8 @@
 main:
   - title: "About"
     url: /about
+  - title: "Git Hub Source"
+    url: https://github.com/magicole/osrj
   # - title: "About"
   #   url: https://mmistakes.github.io/minimal-mistakes/about/
   # - title: "Sample Posts"
