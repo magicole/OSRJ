@@ -2,6 +2,7 @@
 layout: single
 title: Prior Work Research
 excerpt: Other projects that are relevant to OSRJ
+categories: updates
 ---
 
 Robotic arms and motor control systems are nothing new. Instead of reinventing the wheel, I'm going to look at prior work done by others and see what I can incorporate into the OSRJ project. Below are some other projects that include components and ideas that I think will be useful. Projects are in no particular order.
@@ -32,6 +33,6 @@ Robotic arms and motor control systems are nothing new. Instead of reinventing t
     - Not bad speed from demo video
 - [MeArm](https://hackaday.io/project/181-mearm-your-robot)
     - Low cost (~$35) RC servo driven arm
-    - I have one and have created a control shield for it
+    - I have one and have created a control [shield for it](https://github.com/magicole/Robot_Arm_Controller)
     - Small range and lifting capacity
     - Made from laser cut acrylic

@@ -2,6 +2,7 @@
 layout: single
 title: Basic Scope Definition
 excerpt: "Initial ideas about what this project will do"
+categories: updates
 ---
 
 This project will focus on building robotic joints for use in a robot arm. Joints are being focused on because the scope of builing a "robot arm" would be too large. The ultimate goal is to integrate multiple joint units into a robot arm for the final demonstration, but the arm is not the main focus. 
