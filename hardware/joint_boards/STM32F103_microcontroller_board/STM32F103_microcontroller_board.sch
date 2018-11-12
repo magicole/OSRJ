@@ -397,10 +397,6 @@ Text Label 6100 5050 0    50   ~ 0
 SWDIO
 Text Label 6100 5150 0    50   ~ 0
 SWCLK
-Wire Wire Line
-	6000 5050 6500 5050
-Wire Wire Line
-	6000 5150 6500 5150
 $Comp
 L power:GND #PWR020
 U 1 1 5BCDF4D5
@@ -428,10 +424,6 @@ F 4 "Make this resistor a bit larger(power) than expected" H 8800 4450 50  0001 
 	1    8800 4450
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	8400 4400 8400 4300
-Wire Wire Line
-	8400 4300 8800 4300
 $Comp
 L Device:C C9
 U 1 1 5BCE1439
@@ -495,10 +487,6 @@ F 3 "~" H 8800 4750 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	8400 4900 8800 4900
-Wire Wire Line
-	8400 4500 8400 4900
-Wire Wire Line
 	6000 4950 7150 4950
 Wire Wire Line
 	7150 4950 7150 4300
@@ -515,9 +503,9 @@ Wire Wire Line
 Text Label 6100 4850 0    50   ~ 0
 CANRX
 Text Label 9600 4250 0    50   ~ 0
-CANH
+CAN-
 Text Label 9600 4950 0    50   ~ 0
-CANL
+CAN+
 $Comp
 L Device:D_TVS_x2_AAC D5
 U 1 1 5BCE6ECB
@@ -535,14 +523,12 @@ Wire Wire Line
 	9100 4300 9100 4250
 Wire Wire Line
 	9100 4250 9450 4250
-Connection ~ 8800 4300
 Wire Wire Line
 	8800 4900 9100 4900
 Wire Wire Line
 	9100 4900 9100 4950
 Wire Wire Line
 	9100 4950 9450 4950
-Connection ~ 8800 4900
 $Comp
 L power:GND #PWR018
 U 1 1 5BCE8CA2
@@ -574,7 +560,7 @@ L Device:R R1
 U 1 1 5BCEA43F
 P 4250 1150
 F 0 "R1" V 4043 1150 50  0000 C CNN
-F 1 "33" V 4134 1150 50  0000 C CNN
+F 1 "68" V 4134 1150 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4180 1150 50  0001 C CNN
 F 3 "~" H 4250 1150 50  0001 C CNN
 	1    4250 1150
@@ -624,11 +610,11 @@ $EndComp
 Text Label 950  4250 2    50   ~ 0
 VIN
 Text Label 1050 4750 2    50   ~ 0
-CANH
+CAN+
 Text Label 950  4550 2    50   ~ 0
 EXT_GND
 Text Label 1050 4850 2    50   ~ 0
-CANL
+CAN-
 $Comp
 L Connector_Generic:Conn_01x08 J4
 U 1 1 5BCF31DC
@@ -643,11 +629,11 @@ $EndComp
 Text Label 2200 4250 2    50   ~ 0
 VIN
 Text Label 2300 4750 2    50   ~ 0
-CANH
+CAN+
 Text Label 2200 4550 2    50   ~ 0
 EXT_GND
 Text Label 2300 4850 2    50   ~ 0
-CANL
+CAN-
 Text Notes 1100 4050 0    50   ~ 0
 Input
 Text Notes 2450 4050 0    50   ~ 0
@@ -784,7 +770,7 @@ L Device:R R3
 U 1 1 5BD0B17B
 P 3600 3650
 F 0 "R3" H 3400 3650 50  0000 C CNN
-F 1 "68" V 3500 3650 50  0000 C CNN
+F 1 "33" V 3500 3650 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 3530 3650 50  0001 C CNN
 F 3 "~" H 3600 3650 50  0001 C CNN
 	1    3600 3650
@@ -901,12 +887,6 @@ Text Label 6000 4650 0    50   ~ 0
 V_driver
 Text Label 6000 4750 0    50   ~ 0
 W_driver
-Text Label 4700 5050 2    50   ~ 0
-as5040_CLK
-Text Label 4700 5150 2    50   ~ 0
-as5040_DO
-Text Label 4700 5250 2    50   ~ 0
-as5040_PROG
 Text Label 4700 4350 2    50   ~ 0
 local_encoder_pwm
 Text Label 6850 2950 2    50   ~ 0
@@ -983,35 +963,35 @@ F 3 "" H 3400 5950 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2450 5950 2600 5950
-Text Label 1950 6050 2    50   ~ 0
+Text Label 1950 6250 2    50   ~ 0
 OSC_IN
 Text Label 1950 6150 2    50   ~ 0
 OSC_OUT
-Text Label 1950 6250 2    50   ~ 0
+Text Label 1950 6050 2    50   ~ 0
 PC15
-Text Label 1950 6350 2    50   ~ 0
-PB0
-Text Label 1950 6450 2    50   ~ 0
-PB1
-Text Label 1950 6550 2    50   ~ 0
-PB2
 Text Label 1950 6650 2    50   ~ 0
-PB3
-Text Label 2450 6650 0    50   ~ 0
-PB4
+PB0
+Text Label 1950 6550 2    50   ~ 0
+PB1
 Text Label 2450 6550 0    50   ~ 0
-PB5
-Text Label 2450 6450 0    50   ~ 0
-PB7
+PB2
+Text Label 2450 6650 0    50   ~ 0
+PB3
+Text Label 2450 6150 0    50   ~ 0
+PB4
 Text Label 2450 6350 0    50   ~ 0
+PB5
+Text Label 1950 6450 2    50   ~ 0
+PB7
+Text Label 2450 6450 0    50   ~ 0
 PB12
 Text Label 6000 4050 0    50   ~ 0
 PA3
-Text Label 2450 6250 0    50   ~ 0
+Text Label 1950 6350 2    50   ~ 0
 PA3
 Text Label 6000 5250 0    50   ~ 0
 PA15
-Text Label 2450 6150 0    50   ~ 0
+Text Label 2450 6250 0    50   ~ 0
 PA15
 $Comp
 L Connector_Generic:Conn_02x09_Counter_Clockwise J6
@@ -1041,7 +1021,7 @@ U 1 1 5BE117FD
 P 7150 2850
 F 0 "J2" H 7230 2842 50  0000 L CNN
 F 1 "Conn_01x04" H 7230 2751 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Horizontal" H 7150 2850 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 7150 2850 50  0001 C CNN
 F 3 "~" H 7150 2850 50  0001 C CNN
 	1    7150 2850
 	1    0    0    -1  
@@ -1162,4 +1142,35 @@ Wire Wire Line
 	1050 4750 1150 4750
 Wire Wire Line
 	1050 4850 1150 4850
+Wire Wire Line
+	8800 4300 8600 4300
+Wire Wire Line
+	8600 4300 8600 4500
+Wire Wire Line
+	8600 4500 8400 4500
+Connection ~ 8800 4300
+Wire Wire Line
+	8800 4900 8500 4900
+Wire Wire Line
+	8500 4900 8500 4400
+Wire Wire Line
+	8500 4400 8400 4400
+Connection ~ 8800 4900
+Wire Wire Line
+	6000 5050 6400 5050
+Wire Wire Line
+	6400 5050 6400 5150
+Wire Wire Line
+	6400 5150 6500 5150
+Wire Wire Line
+	6000 5150 6350 5150
+Wire Wire Line
+	6350 5150 6350 5100
+Wire Wire Line
+	6350 5100 6500 5100
+Wire Wire Line
+	6500 5100 6500 5050
+NoConn ~ 4700 5050
+NoConn ~ 4700 5150
+NoConn ~ 4700 5250
 $EndSCHEMATC
