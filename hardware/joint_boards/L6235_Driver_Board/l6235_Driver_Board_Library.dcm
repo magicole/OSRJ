@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP L6235
+D ST Micro L6235 Brushless Motor Driver
+K brushless motor driver l6235
+$ENDCMP
+#
+#End Doc Library
