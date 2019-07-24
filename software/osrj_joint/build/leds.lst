@@ -1,0 +1,419 @@
+ARM GAS  /tmp/ccZVhvHo.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"leds.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.global	_LEDS_GREEN_PIN
+  16              		.section	.rodata._LEDS_GREEN_PIN,"a",%progbits
+  17              		.align	1
+  20              	_LEDS_GREEN_PIN:
+  21 0000 0020     		.short	8192
+  22              		.global	_LEDS_BLUE_PIN
+  23              		.section	.rodata._LEDS_BLUE_PIN,"a",%progbits
+  24              		.align	1
+  27              	_LEDS_BLUE_PIN:
+  28 0000 0040     		.short	16384
+  29              		.section	.text.leds_init,"ax",%progbits
+  30              		.align	1
+  31              		.global	leds_init
+  32              		.syntax unified
+  33              		.thumb
+  34              		.thumb_func
+  35              		.fpu softvfp
+  37              	leds_init:
+  38              	.LFB65:
+  39              		.file 1 "Src/leds.c"
+   1:Src/leds.c    **** #include "leds.h"
+   2:Src/leds.c    **** 
+   3:Src/leds.c    **** #include "stm32f1xx_hal.h"
+   4:Src/leds.c    **** 
+   5:Src/leds.c    **** const uint16_t _LEDS_GREEN_PIN = GPIO_PIN_13;
+   6:Src/leds.c    **** const uint16_t _LEDS_BLUE_PIN = GPIO_PIN_14;
+   7:Src/leds.c    **** 
+   8:Src/leds.c    **** 
+   9:Src/leds.c    **** void leds_init() {
+  40              		.loc 1 9 0
+  41              		.cfi_startproc
+  42              		@ args = 0, pretend = 0, frame = 40
+  43              		@ frame_needed = 1, uses_anonymous_args = 0
+  44 0000 80B5     		push	{r7, lr}
+  45              	.LCFI0:
+  46              		.cfi_def_cfa_offset 8
+  47              		.cfi_offset 7, -8
+  48              		.cfi_offset 14, -4
+  49 0002 8AB0     		sub	sp, sp, #40
+  50              	.LCFI1:
+  51              		.cfi_def_cfa_offset 48
+  52 0004 00AF     		add	r7, sp, #0
+  53              	.LCFI2:
+ARM GAS  /tmp/ccZVhvHo.s 			page 2
+
+
+  54              		.cfi_def_cfa_register 7
+  10:Src/leds.c    ****     // enable the clock to GPIOC if it isn't on already
+  11:Src/leds.c    ****     if(__HAL_RCC_GPIOC_IS_CLK_DISABLED()){
+  55              		.loc 1 11 0
+  56 0006 184B     		ldr	r3, .L3
+  57 0008 9B69     		ldr	r3, [r3, #24]
+  58 000a 03F01003 		and	r3, r3, #16
+  59 000e 002B     		cmp	r3, #0
+  60 0010 0BD1     		bne	.L2
+  61              	.LBB2:
+  12:Src/leds.c    ****         __HAL_RCC_GPIOC_CLK_ENABLE();
+  62              		.loc 1 12 0
+  63 0012 154B     		ldr	r3, .L3
+  64 0014 9B69     		ldr	r3, [r3, #24]
+  65 0016 144A     		ldr	r2, .L3
+  66 0018 43F01003 		orr	r3, r3, #16
+  67 001c 9361     		str	r3, [r2, #24]
+  68 001e 124B     		ldr	r3, .L3
+  69 0020 9B69     		ldr	r3, [r3, #24]
+  70 0022 03F01003 		and	r3, r3, #16
+  71 0026 7B60     		str	r3, [r7, #4]
+  72 0028 7B68     		ldr	r3, [r7, #4]
+  73              	.L2:
+  74              	.LBE2:
+  13:Src/leds.c    ****     }
+  14:Src/leds.c    **** 
+  15:Src/leds.c    ****     // Create config objects for PC13 (green) and PC14 (blue)
+  16:Src/leds.c    ****     GPIO_InitTypeDef green_led_config; // struct to hold configuration for PC13
+  17:Src/leds.c    ****     green_led_config.Pin = _LEDS_GREEN_PIN;
+  75              		.loc 1 17 0
+  76 002a 4FF40053 		mov	r3, #8192
+  77 002e BB61     		str	r3, [r7, #24]
+  18:Src/leds.c    ****     green_led_config.Mode = GPIO_MODE_OUTPUT_PP; // output push/pull mode
+  78              		.loc 1 18 0
+  79 0030 0123     		movs	r3, #1
+  80 0032 FB61     		str	r3, [r7, #28]
+  19:Src/leds.c    ****     green_led_config.Speed = GPIO_SPEED_FREQ_LOW; // Low frequency mode 2MHz
+  81              		.loc 1 19 0
+  82 0034 0223     		movs	r3, #2
+  83 0036 7B62     		str	r3, [r7, #36]
+  20:Src/leds.c    ****     HAL_GPIO_Init(GPIOC, &green_led_config);
+  84              		.loc 1 20 0
+  85 0038 07F11803 		add	r3, r7, #24
+  86 003c 1946     		mov	r1, r3
+  87 003e 0B48     		ldr	r0, .L3+4
+  88 0040 FFF7FEFF 		bl	HAL_GPIO_Init
+  21:Src/leds.c    **** 
+  22:Src/leds.c    ****     GPIO_InitTypeDef blue_led_config; // struct to hold configuration for PC14
+  23:Src/leds.c    ****     blue_led_config.Pin = _LEDS_BLUE_PIN;
+  89              		.loc 1 23 0
+  90 0044 4FF48043 		mov	r3, #16384
+  91 0048 BB60     		str	r3, [r7, #8]
+  24:Src/leds.c    ****     blue_led_config.Mode = GPIO_MODE_OUTPUT_PP; // output push/pull mode
+  92              		.loc 1 24 0
+  93 004a 0123     		movs	r3, #1
+  94 004c FB60     		str	r3, [r7, #12]
+  25:Src/leds.c    ****     blue_led_config.Speed = GPIO_SPEED_FREQ_LOW; // Low frequency mode 2MHz
+ARM GAS  /tmp/ccZVhvHo.s 			page 3
+
+
+  95              		.loc 1 25 0
+  96 004e 0223     		movs	r3, #2
+  97 0050 7B61     		str	r3, [r7, #20]
+  26:Src/leds.c    ****     HAL_GPIO_Init(GPIOC, &blue_led_config);
+  98              		.loc 1 26 0
+  99 0052 07F10803 		add	r3, r7, #8
+ 100 0056 1946     		mov	r1, r3
+ 101 0058 0448     		ldr	r0, .L3+4
+ 102 005a FFF7FEFF 		bl	HAL_GPIO_Init
+  27:Src/leds.c    **** }
+ 103              		.loc 1 27 0
+ 104 005e 00BF     		nop
+ 105 0060 2837     		adds	r7, r7, #40
+ 106              	.LCFI3:
+ 107              		.cfi_def_cfa_offset 8
+ 108 0062 BD46     		mov	sp, r7
+ 109              	.LCFI4:
+ 110              		.cfi_def_cfa_register 13
+ 111              		@ sp needed
+ 112 0064 80BD     		pop	{r7, pc}
+ 113              	.L4:
+ 114 0066 00BF     		.align	2
+ 115              	.L3:
+ 116 0068 00100240 		.word	1073876992
+ 117 006c 00100140 		.word	1073811456
+ 118              		.cfi_endproc
+ 119              	.LFE65:
+ 121              		.section	.text.leds_toggle_green,"ax",%progbits
+ 122              		.align	1
+ 123              		.global	leds_toggle_green
+ 124              		.syntax unified
+ 125              		.thumb
+ 126              		.thumb_func
+ 127              		.fpu softvfp
+ 129              	leds_toggle_green:
+ 130              	.LFB66:
+  28:Src/leds.c    **** 
+  29:Src/leds.c    **** void leds_toggle_green() {
+ 131              		.loc 1 29 0
+ 132              		.cfi_startproc
+ 133              		@ args = 0, pretend = 0, frame = 0
+ 134              		@ frame_needed = 1, uses_anonymous_args = 0
+ 135 0000 80B5     		push	{r7, lr}
+ 136              	.LCFI5:
+ 137              		.cfi_def_cfa_offset 8
+ 138              		.cfi_offset 7, -8
+ 139              		.cfi_offset 14, -4
+ 140 0002 00AF     		add	r7, sp, #0
+ 141              	.LCFI6:
+ 142              		.cfi_def_cfa_register 7
+  30:Src/leds.c    ****     HAL_GPIO_TogglePin(GPIOC, _LEDS_GREEN_PIN);
+ 143              		.loc 1 30 0
+ 144 0004 4FF40053 		mov	r3, #8192
+ 145 0008 1946     		mov	r1, r3
+ 146 000a 0248     		ldr	r0, .L6
+ 147 000c FFF7FEFF 		bl	HAL_GPIO_TogglePin
+  31:Src/leds.c    **** }
+ARM GAS  /tmp/ccZVhvHo.s 			page 4
+
+
+ 148              		.loc 1 31 0
+ 149 0010 00BF     		nop
+ 150 0012 80BD     		pop	{r7, pc}
+ 151              	.L7:
+ 152              		.align	2
+ 153              	.L6:
+ 154 0014 00100140 		.word	1073811456
+ 155              		.cfi_endproc
+ 156              	.LFE66:
+ 158              		.section	.text.leds_set_green,"ax",%progbits
+ 159              		.align	1
+ 160              		.global	leds_set_green
+ 161              		.syntax unified
+ 162              		.thumb
+ 163              		.thumb_func
+ 164              		.fpu softvfp
+ 166              	leds_set_green:
+ 167              	.LFB67:
+  32:Src/leds.c    **** 
+  33:Src/leds.c    **** void leds_set_green(int state) {
+ 168              		.loc 1 33 0
+ 169              		.cfi_startproc
+ 170              		@ args = 0, pretend = 0, frame = 8
+ 171              		@ frame_needed = 1, uses_anonymous_args = 0
+ 172 0000 80B5     		push	{r7, lr}
+ 173              	.LCFI7:
+ 174              		.cfi_def_cfa_offset 8
+ 175              		.cfi_offset 7, -8
+ 176              		.cfi_offset 14, -4
+ 177 0002 82B0     		sub	sp, sp, #8
+ 178              	.LCFI8:
+ 179              		.cfi_def_cfa_offset 16
+ 180 0004 00AF     		add	r7, sp, #0
+ 181              	.LCFI9:
+ 182              		.cfi_def_cfa_register 7
+ 183 0006 7860     		str	r0, [r7, #4]
+  34:Src/leds.c    ****     if (state == 0) {
+ 184              		.loc 1 34 0
+ 185 0008 7B68     		ldr	r3, [r7, #4]
+ 186 000a 002B     		cmp	r3, #0
+ 187 000c 07D1     		bne	.L9
+  35:Src/leds.c    ****         HAL_GPIO_WritePin(GPIOC, _LEDS_GREEN_PIN, GPIO_PIN_RESET);
+ 188              		.loc 1 35 0
+ 189 000e 4FF40053 		mov	r3, #8192
+ 190 0012 0022     		movs	r2, #0
+ 191 0014 1946     		mov	r1, r3
+ 192 0016 0748     		ldr	r0, .L12
+ 193 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  36:Src/leds.c    ****     } else {
+  37:Src/leds.c    ****         HAL_GPIO_WritePin(GPIOC, _LEDS_GREEN_PIN, GPIO_PIN_SET);
+  38:Src/leds.c    ****     }
+  39:Src/leds.c    **** }
+ 194              		.loc 1 39 0
+ 195 001c 06E0     		b	.L11
+ 196              	.L9:
+  37:Src/leds.c    ****     }
+ 197              		.loc 1 37 0
+ARM GAS  /tmp/ccZVhvHo.s 			page 5
+
+
+ 198 001e 4FF40053 		mov	r3, #8192
+ 199 0022 0122     		movs	r2, #1
+ 200 0024 1946     		mov	r1, r3
+ 201 0026 0348     		ldr	r0, .L12
+ 202 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 203              	.L11:
+ 204              		.loc 1 39 0
+ 205 002c 00BF     		nop
+ 206 002e 0837     		adds	r7, r7, #8
+ 207              	.LCFI10:
+ 208              		.cfi_def_cfa_offset 8
+ 209 0030 BD46     		mov	sp, r7
+ 210              	.LCFI11:
+ 211              		.cfi_def_cfa_register 13
+ 212              		@ sp needed
+ 213 0032 80BD     		pop	{r7, pc}
+ 214              	.L13:
+ 215              		.align	2
+ 216              	.L12:
+ 217 0034 00100140 		.word	1073811456
+ 218              		.cfi_endproc
+ 219              	.LFE67:
+ 221              		.section	.text.leds_toggle_blue,"ax",%progbits
+ 222              		.align	1
+ 223              		.global	leds_toggle_blue
+ 224              		.syntax unified
+ 225              		.thumb
+ 226              		.thumb_func
+ 227              		.fpu softvfp
+ 229              	leds_toggle_blue:
+ 230              	.LFB68:
+  40:Src/leds.c    **** 
+  41:Src/leds.c    **** void leds_toggle_blue() {
+ 231              		.loc 1 41 0
+ 232              		.cfi_startproc
+ 233              		@ args = 0, pretend = 0, frame = 0
+ 234              		@ frame_needed = 1, uses_anonymous_args = 0
+ 235 0000 80B5     		push	{r7, lr}
+ 236              	.LCFI12:
+ 237              		.cfi_def_cfa_offset 8
+ 238              		.cfi_offset 7, -8
+ 239              		.cfi_offset 14, -4
+ 240 0002 00AF     		add	r7, sp, #0
+ 241              	.LCFI13:
+ 242              		.cfi_def_cfa_register 7
+  42:Src/leds.c    ****     HAL_GPIO_TogglePin(GPIOC, _LEDS_BLUE_PIN);
+ 243              		.loc 1 42 0
+ 244 0004 4FF48043 		mov	r3, #16384
+ 245 0008 1946     		mov	r1, r3
+ 246 000a 0248     		ldr	r0, .L15
+ 247 000c FFF7FEFF 		bl	HAL_GPIO_TogglePin
+  43:Src/leds.c    **** }
+ 248              		.loc 1 43 0
+ 249 0010 00BF     		nop
+ 250 0012 80BD     		pop	{r7, pc}
+ 251              	.L16:
+ 252              		.align	2
+ARM GAS  /tmp/ccZVhvHo.s 			page 6
+
+
+ 253              	.L15:
+ 254 0014 00100140 		.word	1073811456
+ 255              		.cfi_endproc
+ 256              	.LFE68:
+ 258              		.section	.text.leds_set_blue,"ax",%progbits
+ 259              		.align	1
+ 260              		.global	leds_set_blue
+ 261              		.syntax unified
+ 262              		.thumb
+ 263              		.thumb_func
+ 264              		.fpu softvfp
+ 266              	leds_set_blue:
+ 267              	.LFB69:
+  44:Src/leds.c    **** 
+  45:Src/leds.c    **** void leds_set_blue(int state) {
+ 268              		.loc 1 45 0
+ 269              		.cfi_startproc
+ 270              		@ args = 0, pretend = 0, frame = 8
+ 271              		@ frame_needed = 1, uses_anonymous_args = 0
+ 272 0000 80B5     		push	{r7, lr}
+ 273              	.LCFI14:
+ 274              		.cfi_def_cfa_offset 8
+ 275              		.cfi_offset 7, -8
+ 276              		.cfi_offset 14, -4
+ 277 0002 82B0     		sub	sp, sp, #8
+ 278              	.LCFI15:
+ 279              		.cfi_def_cfa_offset 16
+ 280 0004 00AF     		add	r7, sp, #0
+ 281              	.LCFI16:
+ 282              		.cfi_def_cfa_register 7
+ 283 0006 7860     		str	r0, [r7, #4]
+  46:Src/leds.c    ****     if (state == 0) {
+ 284              		.loc 1 46 0
+ 285 0008 7B68     		ldr	r3, [r7, #4]
+ 286 000a 002B     		cmp	r3, #0
+ 287 000c 07D1     		bne	.L18
+  47:Src/leds.c    ****         HAL_GPIO_WritePin(GPIOC, _LEDS_BLUE_PIN, GPIO_PIN_RESET);
+ 288              		.loc 1 47 0
+ 289 000e 4FF48043 		mov	r3, #16384
+ 290 0012 0022     		movs	r2, #0
+ 291 0014 1946     		mov	r1, r3
+ 292 0016 0748     		ldr	r0, .L21
+ 293 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  48:Src/leds.c    ****     } else {
+  49:Src/leds.c    ****         HAL_GPIO_WritePin(GPIOC, _LEDS_BLUE_PIN, GPIO_PIN_SET);
+  50:Src/leds.c    ****     }
+  51:Src/leds.c    **** }...
+ 294              		.loc 1 51 0
+ 295 001c 06E0     		b	.L20
+ 296              	.L18:
+  49:Src/leds.c    ****         HAL_GPIO_WritePin(GPIOC, _LEDS_BLUE_PIN, GPIO_PIN_SET);
+ 297              		.loc 1 49 0
+ 298 001e 4FF48043 		mov	r3, #16384
+ 299 0022 0122     		movs	r2, #1
+ 300 0024 1946     		mov	r1, r3
+ 301 0026 0348     		ldr	r0, .L21
+ 302 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ARM GAS  /tmp/ccZVhvHo.s 			page 7
+
+
+ 303              	.L20:
+ 304              		.loc 1 51 0
+ 305 002c 00BF     		nop
+ 306 002e 0837     		adds	r7, r7, #8
+ 307              	.LCFI17:
+ 308              		.cfi_def_cfa_offset 8
+ 309 0030 BD46     		mov	sp, r7
+ 310              	.LCFI18:
+ 311              		.cfi_def_cfa_register 13
+ 312              		@ sp needed
+ 313 0032 80BD     		pop	{r7, pc}
+ 314              	.L22:
+ 315              		.align	2
+ 316              	.L21:
+ 317 0034 00100140 		.word	1073811456
+ 318              		.cfi_endproc
+ 319              	.LFE69:
+ 321              		.text
+ 322              	.Letext0:
+ 323              		.file 2 "/home/cole/Applications/gcc-arm-none-eabi-7-2018-q2-update/arm-none-eabi/include/machine/
+ 324              		.file 3 "/home/cole/Applications/gcc-arm-none-eabi-7-2018-q2-update/arm-none-eabi/include/sys/_std
+ 325              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 326              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 327              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 328              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 329              		.file 8 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
+ 330              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ARM GAS  /tmp/ccZVhvHo.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 leds.c
+     /tmp/ccZVhvHo.s:20     .rodata._LEDS_GREEN_PIN:0000000000000000 _LEDS_GREEN_PIN
+     /tmp/ccZVhvHo.s:17     .rodata._LEDS_GREEN_PIN:0000000000000000 $d
+     /tmp/ccZVhvHo.s:27     .rodata._LEDS_BLUE_PIN:0000000000000000 _LEDS_BLUE_PIN
+     /tmp/ccZVhvHo.s:24     .rodata._LEDS_BLUE_PIN:0000000000000000 $d
+     /tmp/ccZVhvHo.s:30     .text.leds_init:0000000000000000 $t
+     /tmp/ccZVhvHo.s:37     .text.leds_init:0000000000000000 leds_init
+     /tmp/ccZVhvHo.s:116    .text.leds_init:0000000000000068 $d
+     /tmp/ccZVhvHo.s:122    .text.leds_toggle_green:0000000000000000 $t
+     /tmp/ccZVhvHo.s:129    .text.leds_toggle_green:0000000000000000 leds_toggle_green
+     /tmp/ccZVhvHo.s:154    .text.leds_toggle_green:0000000000000014 $d
+     /tmp/ccZVhvHo.s:159    .text.leds_set_green:0000000000000000 $t
+     /tmp/ccZVhvHo.s:166    .text.leds_set_green:0000000000000000 leds_set_green
+     /tmp/ccZVhvHo.s:217    .text.leds_set_green:0000000000000034 $d
+     /tmp/ccZVhvHo.s:222    .text.leds_toggle_blue:0000000000000000 $t
+     /tmp/ccZVhvHo.s:229    .text.leds_toggle_blue:0000000000000000 leds_toggle_blue
+     /tmp/ccZVhvHo.s:254    .text.leds_toggle_blue:0000000000000014 $d
+     /tmp/ccZVhvHo.s:259    .text.leds_set_blue:0000000000000000 $t
+     /tmp/ccZVhvHo.s:266    .text.leds_set_blue:0000000000000000 leds_set_blue
+     /tmp/ccZVhvHo.s:317    .text.leds_set_blue:0000000000000034 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_Init
+HAL_GPIO_TogglePin
+HAL_GPIO_WritePin
